@@ -6,7 +6,7 @@ Java multi-thread web crawler
 Each anchor crawler a thread   
 Each img crawler a thread
 
-
+![depth and width](https://github.com/TrentaIcedCoffee/ImgCrawler/blob/master/instruction.JPG)
 
 #### Environment:
 
