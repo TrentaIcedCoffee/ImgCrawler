@@ -11,12 +11,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * AnchorFetcher impl Runnable
+/**
+ * AnchorFetcher fetch all anchors in a page
+ * @author Xin
  * 
- * public method:
- * AnchorFetcher(String url, Set<String> anchorSet, int width)
- * run()
  */
 public class AnchorFetcher implements Runnable {
 	private final static Pattern PATTERN_ANCHOR = Pattern.compile("<a href=\"([^\"]*)\"[^<]*</a>");
@@ -102,29 +100,5 @@ public class AnchorFetcher implements Runnable {
 	@Override
 	public void run() {
 		fetch();
-	}
-	
-	public static void main(String[] args) {
-		Set<String> anchorSet = new HashSet<>();
-		anchorSet.add("http://nutch.apache.org/");
-		
-		for (int i = 1; i <= 3; i++) {
-			Set<String> _anchorSet = new HashSet<>();
-			for (String url : anchorSet) {
-				Thread thread = new Thread(new AnchorFetcher(url, _anchorSet, 5));
-				thread.start();
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			anchorSet = _anchorSet;
-		}
-		
-		System.out.println(anchorSet.size());
-		for (String val : anchorSet) {
-			System.out.println(val);
-		}
 	}
 }

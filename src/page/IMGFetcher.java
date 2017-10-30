@@ -13,13 +13,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * IMGFetcher impl Runnable
- * 
- * public method:
- * IMGFetcher(String url)
- * run()
- * List<String> getIMGList()
+/**
+ * IMGFethcer fetches all img in a page
+ * @author Xin
+ *
  */
 public class IMGFetcher implements Runnable {
 	private final static Pattern PATTERN_IMG = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
@@ -108,40 +105,5 @@ public class IMGFetcher implements Runnable {
 	public void run() {	
 		this.pageContent = this.openPage(this.url);
 		this.fetch();
-	}
-	
-	public static void main(String[] args) {		
-		long timeStart = System.nanoTime();
-
-		IMGFetcher f1 = new IMGFetcher("http://nutch.apache.org/");
-		IMGFetcher f2 = new IMGFetcher("https://wiki.apache.org/nutch/FrontPage#What_is_Apache_Nutch.3F/");
-		IMGFetcher f3 = new IMGFetcher("http://www.apache.org/foundation/thanks.html");
-		
-		Thread t1 = new Thread(f1);
-		Thread t2 = new Thread(f2);
-		Thread t3 = new Thread(f3);
-
-		t1.start();
-		t2.start();
-		t3.start();
-		
-		try {
-			t1.join();
-			t2.join();
-			t3.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		List<String> result = new ArrayList<>();
-		result.addAll(f1.getIMGList());
-		result.addAll(f2.getIMGList());
-		result.addAll(f3.getIMGList());
-		
-		System.out.println(result.size());
-		
-		long timeStop = System.nanoTime();
-		
-		System.out.println("multithread finished   : " + (timeStop - timeStart));
 	}
 }
