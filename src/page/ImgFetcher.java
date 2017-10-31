@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 import java.net.*;
+
 /**
  * IMGFethcer fetches all img in a page
  * 
