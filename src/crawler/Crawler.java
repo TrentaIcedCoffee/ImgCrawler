@@ -1,18 +1,16 @@
 package crawler;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 import page.AnchorFetcher;
-import page.IMGFetcher;
+import page.ImgFetcher;
 
 /**
  * Crawler main class for crawling
  * depth: crawling depth
  * width: for each page, crawling maximum size
+ * 
  * @author Xin
  *
  */
@@ -52,12 +50,12 @@ public class Crawler {
 	}
 	
 	private void crawlImg() {
-		List<IMGFetcher> missionQueue = new ArrayList<>();
+		List<ImgFetcher> missionQueue = new ArrayList<>();
 		for (String anchorEach : anchorSet) {
-			missionQueue.add(new IMGFetcher(anchorEach));
+			missionQueue.add(new ImgFetcher(anchorEach));
 		}
 		
-		for (IMGFetcher mission : missionQueue) {
+		for (ImgFetcher mission : missionQueue) {
 			Thread thread = new Thread(mission);
 			try {
 				thread.start();
@@ -67,7 +65,7 @@ public class Crawler {
 			}
 		}
 		
-		for (IMGFetcher mission : missionQueue) {
+		for (ImgFetcher mission : missionQueue) {
 			imgSet.addAll(mission.getIMGList());
 		}
 	}
@@ -79,9 +77,9 @@ public class Crawler {
 	}
 	
 	public static void main(String[] args) {
-		Crawler test = new Crawler("http://nutch.apache.org/", 3, 5);
+		Crawler instance = new Crawler(args[0], Integer.parseInt(args[1]), Integer.parseInt(args[2]));
 		long startTime = System.nanoTime();
-		List<String> result = test.getImgList();
+		List<String> result = instance.getImgList();
 		System.out.println(result.size());
 		long endTime = System.nanoTime();
 		System.out.println("Time: " + (endTime - startTime));

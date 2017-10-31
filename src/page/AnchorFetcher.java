@@ -1,18 +1,13 @@
 package page;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+import java.net.*;
 
 /**
  * AnchorFetcher fetch all anchors in a page
+ * 
  * @author Xin
  * 
  */
@@ -52,7 +47,7 @@ public class AnchorFetcher implements Runnable {
 	}
 	
 	private void fetch() {		
-		Matcher matcher = this.PATTERN_ANCHOR.matcher(openPage());
+		Matcher matcher = AnchorFetcher.PATTERN_ANCHOR.matcher(openPage());
 		String root = getRoot();
 		int size = 0;
 		

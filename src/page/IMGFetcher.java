@@ -1,30 +1,22 @@
 package page;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+import java.net.*;
 /**
  * IMGFethcer fetches all img in a page
+ * 
  * @author Xin
  *
  */
-public class IMGFetcher implements Runnable {
+public class ImgFetcher implements Runnable {
 	private final static Pattern PATTERN_IMG = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
 	protected final String url;
 	protected String pageContent;
 	protected List<String> imgQueue;
 	
-	public IMGFetcher(String url) {
+	public ImgFetcher(String url) {
 		if (url.length() >= 4 && !url.substring(url.length() - 4, url.length()).equals("html") && url.charAt(url.length() - 1) != '/') {
 			url = url + "/";
 		}
@@ -54,7 +46,7 @@ public class IMGFetcher implements Runnable {
 	}
 	
 	private void fetch() {		
-		Matcher matcher = this.PATTERN_IMG.matcher(this.pageContent);
+		Matcher matcher = ImgFetcher.PATTERN_IMG.matcher(this.pageContent);
 		Set<String> set = new HashSet<String>();
 		String root = getRoot();
 		
